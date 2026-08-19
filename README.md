@@ -4,7 +4,7 @@ A Turkish, mobile-first daily price guessing game inspired by Wordle. Every even
 
 ## Status
 
-Product definition and architecture only. The application has not been implemented yet.
+Product and architecture definition are complete. An exploratory, fully playable 10-question UI prototype lives in [`examples/quiz-prototype`](examples/quiz-prototype). Its content, images, and visual details are intentionally rough and will be refined iteratively; it is not the production implementation.
 
 ## Product summary
 
@@ -23,3 +23,14 @@ The interface and content are Turkish. Source code and technical documentation a
 A framework-free static site deployed to GitHub Pages by GitHub Actions. Future quizzes live in the public repository, while only one quiz is included in each deployment.
 
 See [product requirements](docs/product.md), [architecture](docs/architecture.md), and the [implementation plan](docs/plan.md).
+
+## Exploratory prototype
+
+To review the current interaction concept:
+
+```sh
+cd examples/quiz-prototype
+python3 -m http.server 8080
+```
+
+Then open <http://localhost:8080>. No project-wide development command surface has been established yet.

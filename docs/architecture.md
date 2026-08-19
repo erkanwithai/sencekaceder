@@ -6,6 +6,8 @@ Sence Kaç Eder? is a framework-free static web application. Quiz source files a
 
 There is no runtime server, API, database, authentication, or server-side user state.
 
+An exploratory 10-question prototype currently exists under `examples/quiz-prototype`. It validates the broad interaction sequence, but it is deliberately outside the production layout. Its coupled rendering/game code, runtime JSON fetch, remote font request, and lack of persistence or tests must not be mistaken for the production architecture.
+
 ## System boundaries
 
 ### Inside the system
@@ -77,10 +79,13 @@ Conceptual model; exact serialization will be chosen during implementation.
 ```text
 DailyQuiz
   date: YYYY-MM-DD
+  title: Turkish string
   questions: Question[10]
 
 Question
   id: stable string within the quiz
+  title: short Turkish string
+  prompt: tailored Turkish price question
   information: InformationScreen[]
   targetPrice: positive integer
 
@@ -92,7 +97,7 @@ InformationScreen
   imageAlt?: Turkish string
 ```
 
-Only `text`, `highlight`, and `image` screens are initially supported. Additional presentation types require a demonstrated content need.
+Only `text`, `highlight`, and `image` screens are initially supported. Question `title` and `prompt` keep presentation copy out of category-specific logic and proved useful in the exploratory quiz. Additional presentation types or category-specific fields require a demonstrated content need.
 
 The target price is an integer number of Turkish lira. Source references, captured-price dates, external embeds, and localization structures are intentionally excluded from the initial model.
 

@@ -19,16 +19,26 @@ The primary audience is Turkish-speaking casual web users looking for a quick, e
 
 ## Core workflow
 
-1. The player opens the current daily quiz.
-2. The player advances through a question's information screens using a clear button.
-3. Information may be text, a prominent fact, or a locally hosted image. The number and order of screens may differ by question.
-4. The player can reopen a summary of information already shown.
-5. After all information is presented, the player enters a positive whole-number price in Turkish lira.
-6. If the guess is within ±5% of the target, the question succeeds and the actual price is revealed.
-7. Otherwise, the game says only that the player should guess higher or lower. One star is lost, and the player tries again.
-8. The question ends when the player succeeds or uses all 10 attempts. The actual price is then shown.
-9. After 10 questions, the player sees a 10-row star result and a score out of 100.
-10. Refreshing the page restores in-progress or completed state on the same browser.
+1. The player opens the current daily quiz and sees a concise start screen before beginning.
+2. The game keeps the 10-question progression and current total stars visible while playing.
+3. The player advances through a question's information screens using a clear button.
+4. Information may be text, a prominent fact, or a locally hosted image. The number and order of screens may differ by question.
+5. The player can reopen a summary of information already shown.
+6. After all information is presented, the game gives the question a distinct “Sence kaç eder?” moment and asks for a positive whole-number price in Turkish lira.
+7. If the guess is within ±5% of the target, the question succeeds and the actual price is revealed.
+8. Otherwise, the game says only that the player should guess higher or lower. One star is lost, the visible score responds, and the player tries again.
+9. The question ends when the player succeeds or uses all 10 attempts. The actual price is then shown.
+10. After 10 questions, the player sees a 10-row star result and a score out of 100.
+11. Refreshing the page restores in-progress or completed state on the same browser.
+
+## Experience and content direction
+
+- A quiz should feel varied, moving across categories such as housing, events, food, cars, baby products, restaurants, technology, travel, sport, and everyday services.
+- Each question should use a small set of concise, price-relevant facts rather than a long specification sheet.
+- Questions may use tailored prompts such as “Sence bir top dondurma kaç TL?” instead of repeating one generic sentence everywhere.
+- Images should clarify the exact subject, place, product, seat, or atmosphere. A technically valid but weakly matched image is not finished content.
+- The price reveal should feel playful and dramatic, while higher/lower feedback must remain immediately understandable.
+- Visual design will be refined through playable reviews. Early prototype screens establish a discussion surface, not an approved final system.
 
 ## Scoring
 

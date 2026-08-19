@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ff5c35">
+  <title>Sence Kaç Eder? — UI Prototipi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;800&family=Figtree:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="site-header">
+    <button class="brand" type="button" data-action="home" aria-label="Ana sayfa">
+      <span class="brand-mark">₺</span>
+      <span>Sence<br><strong>Kaç Eder?</strong></span>
+    </button>
+    <div class="score-pill" aria-label="Toplam yıldız">
+      <span>★</span><strong id="total-score">100</strong><small>/ 100</small>
+    </div>
+  </header>
+
+  <main class="app-shell" id="app" aria-live="polite">
+    <section class="loading-view card">
+      <div class="spinner"></div>
+      <p>Quiz hazırlanıyor…</p>
+    </section>
+  </main>
+
+  <dialog class="summary-dialog" id="summary-dialog">
+    <div class="dialog-header">
+      <div><span class="eyebrow">HATIRLATMA</span><h2>Şimdiye kadar bildiklerin</h2></div>
+      <button class="icon-button" data-action="close-summary" aria-label="Kapat">×</button>
+    </div>
+    <div id="summary-content" class="summary-list"></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

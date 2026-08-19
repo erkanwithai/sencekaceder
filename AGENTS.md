@@ -6,7 +6,7 @@ Build Sence Kaç Eder? as a small, polished, Turkish daily price guessing game. 
 
 ## Current status
 
-The repository contains product and architecture documentation only. Do not treat planned commands or file layouts as already implemented.
+The repository contains product and architecture documentation plus an exploratory 10-question UI prototype under `examples/quiz-prototype`. The prototype is useful for discussing flow and visual direction, but its code, content, images, and file format are not yet production decisions. Do not treat planned production commands or layouts as implemented.
 
 ## Language conventions
 
@@ -29,7 +29,7 @@ Changes that cross these boundaries require updating the architecture documentat
 
 ## Expected commands
 
-No executable project commands exist yet. During implementation, provide a small and consistent command surface and keep this section current. Prefer:
+No project-wide executable command surface exists yet. The exploratory prototype can be viewed with the command documented in its own README. During production implementation, provide a small and consistent command surface and keep this section current. Prefer:
 
 ```sh
 npm run dev          # local development
@@ -56,9 +56,11 @@ Do not add a package manager or placeholder scripts until the first implementati
 
 - One source file per `YYYY-MM-DD` quiz date
 - A production quiz has exactly 10 questions.
-- A question has one or more ordered information screens and one target price.
+- A question has a short Turkish title, a tailored Turkish price prompt, one or more ordered information screens, and one target price.
+- Keep each information screen concise; reveal only the facts needed to make the price interesting to estimate.
 - Initial screen types are `text`, `highlight`, and `image` only.
-- Assets are stored locally in the repository.
+- Assets are stored locally in the repository. Image relevance and quality are part of the content, not incidental placeholders in a finished quiz.
+- Prefer broad daily category variety rather than ten variations of the same type of purchase.
 - Do not add source URLs, editorial workflows, localization systems, or category-specific schemas unless requested.
 
 ## Operational constraints
@@ -68,6 +70,12 @@ Do not add a package manager or placeholder scripts until the first implementati
 - A failed workflow must leave the previous GitHub Pages version live.
 - Future quiz visibility in the public repository is acceptable.
 - Initial expected traffic is hundreds of daily users.
+
+## Product collaboration
+
+- Prefer showing a concrete, playable artifact over discussing speculative technical details.
+- Treat product review as iterative: retain useful decisions, revise weak screens and imagery, and avoid presenting prototype choices as final.
+- Keep project documentation current as product conversations clarify the intended experience.
 
 ## Definition of done
 

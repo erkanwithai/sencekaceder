@@ -1,8 +1,16 @@
 # Implementation Plan
 
-The plan is deliberately incremental. Each milestone should be reviewed before starting the next; visual and interaction decisions will evolve from the working prototype.
+The plan is deliberately incremental. Each milestone should be reviewed before starting the next; visual and interaction decisions will evolve from playable reviews.
+
+## Discovery prototype — completed, not production
+
+A framework-free, fully playable 10-question prototype now lives in `examples/quiz-prototype`. It was intentionally built before the production foundation so the product owner could react to a concrete quiz and UI rather than abstract technical choices.
+
+The prototype established the broad start → progressive clues → tailored price prompt → higher/lower guesses → reveal → next question → final score sequence. It also exposed expected iteration areas: image selection needs substantial improvement, and several screen treatments need refinement. Prototype code and content are disposable inputs to the milestones below, not a shortcut around production structure, validation, persistence, accessibility, or tests.
 
 ## Milestone 0 — Product and architecture definition
+
+**Status:** Complete; documentation continues to absorb product learnings.
 
 **Goal:** Agree on the core loop and smallest architecture.
 
@@ -12,17 +20,19 @@ The plan is deliberately incremental. Each milestone should be reviewed before s
 
 **Exit:** The documents in this repository are accepted as the implementation baseline.
 
-## Milestone 1 — Smallest useful vertical slice
+## Milestone 1 — Smallest useful production vertical slice
 
-**Goal:** Validate the game feel with one representative question.
+**Goal:** Turn the exploratory learning into a maintainable, testable implementation using one representative question.
 
-- Create one local sample question with several text/image/highlight information screens.
+- Select one question from the prototype and replace its rough imagery and copy with review-quality local content.
+- Create several text/image/highlight information screens.
 - Build the mobile-first forward-navigation flow.
 - Allow previously shown information to be reviewed in a summary.
 - Add formatted whole-TL input.
 - Implement 10 attempts, higher/lower feedback, ±5% success, star loss, and actual-price reveal.
 - Persist that one question's progress through refresh.
-- Establish the initial fancy visual direction and transitions without adding a UI library.
+- Refine the visual direction and transitions from prototype feedback without adding a UI library.
+- Keep pure game/scoring logic separate from DOM rendering and local persistence; do not carry over the prototype's coupled structure.
 - Add focused tests for scoring and attempt boundaries.
 
 **Exit:** A user can enjoyably complete one question on mobile, refresh safely, and understand the rules without explanation.
@@ -31,7 +41,7 @@ This is the recommended smallest useful vertical slice.
 
 ## Milestone 2 — Complete daily quiz
 
-**Goal:** Expand the proven loop to a data-driven 10-question game.
+**Goal:** Expand the production vertical slice to a data-driven 10-question game, using the exploratory quiz only as initial content input.
 
 - Define and validate the dated quiz file format.
 - Render variable ordered information screens from data.
