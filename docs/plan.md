@@ -67,6 +67,8 @@ This is the recommended smallest useful vertical slice.
 
 ## Milestone 4 — Daily GitHub Pages delivery
 
+**Infrastructure status:** The Cloudflare DNS, verified custom domain, enforced HTTPS, GitHub Pages environment, and GitHub Actions deployment path have been validated by publishing and using the exploratory prototype on a mobile phone. The dated build, validation, schedule, recovery input, and failure behavior below remain production work. See [deployment.md](deployment.md).
+
 **Goal:** Reliably publish one repository-backed quiz per day.
 
 - Build one explicitly selected quiz into a clean artifact.

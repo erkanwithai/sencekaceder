@@ -22,7 +22,7 @@ The interface and content are Turkish. Source code and technical documentation a
 
 A framework-free static site deployed to GitHub Pages by GitHub Actions. Future quizzes live in the public repository, while only one quiz is included in each deployment.
 
-See [product requirements](docs/product.md), [architecture](docs/architecture.md), and the [implementation plan](docs/plan.md).
+See [product requirements](docs/product.md), [architecture](docs/architecture.md), the [implementation plan](docs/plan.md), and the [deployment notes](docs/deployment.md).
 
 ## Exploratory prototype
 

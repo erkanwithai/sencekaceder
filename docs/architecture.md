@@ -8,6 +8,8 @@ There is no runtime server, API, database, authentication, or server-side user s
 
 An exploratory 10-question prototype currently exists under `examples/quiz-prototype`. It validates the broad interaction sequence, but it is deliberately outside the production layout. Its coupled rendering/game code, runtime JSON fetch, remote font request, and lack of persistence or tests must not be mistaken for the production architecture.
 
+The prototype is temporarily deployed at `sencekaceder.com`. This has validated the GitHub Pages, custom-domain, DNS, HTTPS, static asset, and mobile access path. The temporary workflow copies the example as-is and must be replaced by the validated, dated production build described below.
+
 ## System boundaries
 
 ### Inside the system
@@ -118,9 +120,14 @@ Invalid input does not consume an attempt.
 - **Source control:** public GitHub repository
 - **CI/CD:** GitHub Actions
 - **Hosting:** GitHub Pages with the custom domain `sencekaceder.com`
-- **Artifact:** one current static quiz
+- **DNS:** Cloudflare DNS-only records targeting GitHub Pages
+- **TLS:** GitHub Pages HTTPS, enforced for the verified custom domain
+- **Current temporary artifact:** the exploratory prototype
+- **Production artifact:** one current static quiz
 - **Capacity target:** hundreds of daily users
 - **Rollback behavior:** retain the previous deployment when a new workflow fails
+
+The current infrastructure configuration and transition requirements are recorded in [deployment.md](deployment.md).
 
 ## SEO and performance
 

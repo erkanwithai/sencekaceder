@@ -6,7 +6,7 @@ Build Sence Kaç Eder? as a small, polished, Turkish daily price guessing game. 
 
 ## Current status
 
-The repository contains product and architecture documentation plus an exploratory 10-question UI prototype under `examples/quiz-prototype`. The prototype is useful for discussing flow and visual direction, but its code, content, images, and file format are not yet production decisions. Do not treat planned production commands or layouts as implemented.
+The repository contains product and architecture documentation plus an exploratory 10-question UI prototype under `examples/quiz-prototype`. The prototype is temporarily deployed to `sencekaceder.com` by `.github/workflows/deploy-prototype.yml`; the custom domain, Cloudflare DNS, GitHub Pages, HTTPS, and mobile access have been validated. The prototype is useful for discussing flow and visual direction, but its code, content, images, file format, and deployment workflow are not production decisions. Do not treat planned production commands or layouts as implemented. See `docs/deployment.md` for the current hosting configuration and production transition notes.
 
 ## Language conventions
 
