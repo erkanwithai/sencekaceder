@@ -6,7 +6,7 @@ The plan is deliberately incremental. Each milestone should be reviewed before s
 
 A framework-free, fully playable 10-question prototype now lives in `examples/quiz-prototype`. It was intentionally built before the production foundation so the product owner could react to a concrete quiz and UI rather than abstract technical choices.
 
-The prototype established the broad start → progressive clues → tailored price prompt → higher/lower guesses → reveal → next question → final score sequence. It also exposed expected iteration areas: image selection needs substantial improvement, and several screen treatments need refinement. Prototype code and content are disposable inputs to the milestones below, not a shortcut around production structure, validation, persistence, accessibility, or tests.
+The prototype established the broad start → progressive information → tailored price prompt → higher/lower guesses → reveal → next question → final score sequence. Playable review also established durable interaction and visual decisions covering concise non-duplicative information screens, Turkish price formatting and guess history, repeated-guess prevention, keyboard-operable primary actions, visible focus, and the Warm Coral color system. These are recorded in [product.md](product.md). Image selection still needs substantial improvement, and several screen treatments may continue to evolve. Prototype code and content are disposable inputs to the milestones below, not a shortcut around production structure, validation, persistence, accessibility, or tests.
 
 ## Milestone 0 — Product and architecture definition
 

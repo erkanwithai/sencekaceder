@@ -10,7 +10,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Konut 🏠"
+          "content": "Konut"
         },
         {
           "type": "image",
@@ -26,7 +26,6 @@
         },
         {
           "type": "text",
-          "label": "Özellikler",
           "content": "Site içinde, 8. kat, kapalı otoparklı ve 5 yaşında."
         },
         {
@@ -46,7 +45,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Konser bileti 🎤"
+          "content": "Konser bileti"
         },
         {
           "type": "image",
@@ -83,7 +82,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Yeme içme 🍦"
+          "content": "Yeme içme"
         },
         {
           "type": "image",
@@ -115,7 +114,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Otomobil 🚙"
+          "content": "Otomobil"
         },
         {
           "type": "image",
@@ -145,7 +144,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Bebek ürünleri 👶"
+          "content": "Bebek ürünleri"
         },
         {
           "type": "image",
@@ -175,7 +174,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Restoran hesabı 🍽️"
+          "content": "Restoran hesabı"
         },
         {
           "type": "image",
@@ -215,7 +214,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Teknoloji 📱"
+          "content": "Teknoloji"
         },
         {
           "type": "image",
@@ -245,7 +244,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Tatil 🏖️"
+          "content": "Tatil"
         },
         {
           "type": "image",
@@ -280,7 +279,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Spor etkinliği ⚽"
+          "content": "Spor etkinliği"
         },
         {
           "type": "image",
@@ -310,7 +309,7 @@
         {
           "type": "highlight",
           "label": "Kategori",
-          "content": "Günlük hizmet 🧹"
+          "content": "Günlük hizmet"
         },
         {
           "type": "image",

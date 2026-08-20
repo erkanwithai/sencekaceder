@@ -40,6 +40,51 @@ The primary audience is Turkish-speaking casual web users looking for a quick, e
 - The price reveal should feel playful and dramatic, while higher/lower feedback must remain immediately understandable.
 - Visual design will be refined through playable reviews. Early prototype screens establish a discussion surface, not an approved final system.
 
+## Validated prototype learnings
+
+The following decisions emerged from playable review and should carry into production unless a later review explicitly changes them.
+
+### Information and copy
+
+- The screens before a price guess present additional information about the subject; they are not “clues” (`ipucu`) and should not be described that way in Turkish UI copy.
+- Avoid repeating context the player already has. Do not show the question title on every information screen, duplicate an emoji already supplied by the component, or add generic labels such as `Özellikler` when the content is self-explanatory.
+- Information labels are optional and should add meaning. Category names, labels, titles, images, and icons should each do a distinct job.
+- Keep the start screen concise. It does not need a “Bugünün 10 fiyatı” badge or a decorative character emoji.
+
+### Guessing interaction
+
+- Format entered and displayed prices using Turkish thousands separators, for example `10.000.000`.
+- Keep an unsuccessful guess visible in the input instead of clearing it.
+- Show prior valid guesses with an explicit higher/lower arrow so the player does not need to remember earlier attempts. Preserve equivalent text for assistive technology rather than conveying direction only through the arrow.
+- When the current input equals the immediately preceding valid guess, disable submission. A repeated guess must never consume an attempt, including through keyboard or programmatic form submission.
+
+### Keyboard and focus behavior
+
+- Use semantic buttons so every button supports Enter and Space when focused.
+- The main action in each step—start, continue, submit, next question, show result, or restart—should also respond to Enter and Space when focus is not inside another interactive control.
+- Disabled actions must remain inactive for pointer and keyboard input.
+- Keep keyboard focus clearly visible. Global shortcuts must not override typing in an input, operating another focused control, or interacting with an open dialog.
+
+### Warm Coral color system
+
+The approved visual direction is warm, energetic, friendly, and modern without resembling either a cold finance product or an overly colorful children's game. Use semantic CSS custom properties rather than scattered color literals.
+
+- Page background: `#FFF3DF`
+- Card and surface: `#FFFDF8`
+- Primary coral: `#FF593D`
+- Primary pressed or physical shadow: `#D83B28`
+- Main text: `#281E18`
+- Secondary text: `#776B61`
+- Border and divider: `#EADCC8`
+- Gold and stars: `#E9AC00`
+- Success green: `#168866`
+- Error red: `#CB442F`
+- Input background: `#FFFAF1`
+- Inactive progress: `#E9DED0`
+- Decorative coral: `rgba(226, 92, 62, 0.14)`
+
+Reserve coral for primary actions, active progress, and brand emphasis; gold for stars, scores, and rewards; green for correct or successful states; and red for errors and unsuccessful-guess feedback. Do not use pure black for text or pure white for surfaces. Cards should be separated from the page by a fine warm border and subtle warm shadow while buttons retain their physical pressed treatment. Supporting darker shades may be used for text or state shadows when necessary to meet WCAG AA contrast.
+
 ## Scoring
 
 - Each question starts with 10 stars.
@@ -123,3 +168,8 @@ Initially, hundreds of daily users. A static GitHub Pages deployment is expected
 11. The UI is Turkish, mobile-first, visually polished, and usable on desktop.
 12. The delivered page is static HTML with useful title, description, canonical, and social metadata; core content does not depend on client-side rendering.
 13. A missing daily content file causes deployment to fail while leaving the existing GitHub Pages deployment intact.
+14. Price entry and display use Turkish thousands separators, and unsuccessful guesses remain visible alongside their higher/lower history.
+15. Re-entering the immediately previous guess disables submission and cannot consume another attempt.
+16. Every button is operable with Enter and Space when focused; the contextual main action also supports those keys away from other interactive controls, with a visible focus indicator throughout.
+17. Information screens use concise, non-duplicative copy and are not presented as clues in the Turkish interface.
+18. The interface follows the Warm Coral semantic color roles while maintaining at least WCAG AA contrast for normal text.

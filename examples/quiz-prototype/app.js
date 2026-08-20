@@ -11,7 +11,9 @@ const state = {
   attempts: 0,
   results: [],
   feedback: "",
-  feedbackKind: ""
+  feedbackKind: "",
+  lastGuess: "",
+  guesses: []
 };
 
 const formatPrice = (price) => new Intl.NumberFormat("tr-TR").format(price);
@@ -55,13 +57,12 @@ function progressMarkup() {
 function renderStart() {
   app.innerHTML = `
     <section class="start-view card">
-      <div class="hero-art">
-        <div class="hero-emoji">🤔</div>
-        <span class="sticker">BUGÜNÜN 10 FİYATI</span>
+      <div class="hero-art" aria-hidden="true">
+        <div class="hero-symbol"><span>₺</span><strong>?</strong></div>
       </div>
       <div class="start-copy">
         <h1>Fiyatları gerçekten <em>biliyor musun?</em></h1>
-        <p>İpuçlarını incele, fiyatı tahmin et. Her yanlış tahmin bir yıldıza mal olur.</p>
+        <p>Ürün hakkındaki bilgileri incele, fiyatı tahmin et. Her yanlış tahmin bir yıldıza mal olur.</p>
         <button class="primary-button" data-action="start">Hadi başlayalım <span aria-hidden="true">→</span></button>
       </div>
     </section>`;
@@ -97,9 +98,9 @@ function renderInformation() {
 
   app.innerHTML = `${progressMarkup()}
     <section class="question-card card">
-      <header class="question-heading">
-        <div><span class="eyebrow">İPUÇLARINI TOPLA</span><h1>${escapeHtml(question.title)}</h1></div>
-        ${state.screenIndex > 0 ? '<button class="ghost-button" data-action="summary">Bildiklerim</button>' : ""}
+      <header class="question-heading compact">
+        <span class="eyebrow" aria-label="Bilgi ${state.screenIndex + 1} / ${question.information.length}">${state.screenIndex + 1} / ${question.information.length}</span>
+        ${state.screenIndex > 0 ? '<button class="ghost-button" data-action="summary">Öğrendiklerim</button>' : ""}
       </header>
       <div class="screen-area">
         <div class="info-screen ${isHighlight ? "highlight" : ""}">${body}</div>
@@ -115,25 +116,41 @@ function starsMarkup(stars) {
   return Array.from({ length: 10 }, (_, index) => `<span class="${index >= stars ? "lost" : ""}">★</span>`).join("");
 }
 
+function guessHistoryMarkup() {
+  if (state.guesses.length === 0) return "";
+  return `<div class="guess-history" aria-label="Önceki tahminler">
+    <small>Önceki tahminler</small>
+    <div>${state.guesses.map((guess) => `
+      <span aria-label="${formatPrice(guess.value)} TL, ${guess.direction === "up" ? "daha yüksek" : "daha düşük"}">
+        ${formatPrice(guess.value)} <strong aria-hidden="true">${guess.direction === "up" ? "↑" : "↓"}</strong>
+      </span>`).join("")}</div>
+  </div>`;
+}
+
+function isRepeatedGuess(value = state.lastGuess) {
+  const numericValue = Number(String(value).replaceAll(/[^0-9]/g, ""));
+  return state.guesses.at(-1)?.value === numericValue;
+}
+
 function renderGuess() {
   updateTotalScore();
   const question = currentQuestion();
   app.innerHTML = `${progressMarkup()}
     <section class="question-card card">
-      <header class="question-heading">
-        <div><span class="eyebrow">TÜM İPUÇLARI AÇILDI</span><h1>${escapeHtml(question.title)}</h1></div>
-        <button class="ghost-button" data-action="summary">Bildiklerim</button>
+      <header class="question-heading compact">
+        <span class="eyebrow">TAHMİN ZAMANI</span>
+        <button class="ghost-button" data-action="summary">Öğrendiklerim</button>
       </header>
       <form class="screen-area guess-screen" id="guess-form">
-        <div class="guess-burst">💸</div>
         <h2>${escapeHtml(question.prompt)}</h2>
         <p class="guess-hint ${state.feedbackKind}">${state.feedback || "Pozitif bir tam sayı gir."}</p>
         <div class="price-wrap">
-          <input id="price-input" name="price" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Fiyat tahmini">
+          <input id="price-input" name="price" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Fiyat tahmini" value="${escapeHtml(state.lastGuess)}">
           <span>TL</span>
         </div>
+        ${guessHistoryMarkup()}
         <div class="attempt-stars" aria-label="Kalan yıldızlar">${starsMarkup(currentStars())}</div>
-        <button class="primary-button" type="submit">Tahmin et</button>
+        <button class="primary-button" id="guess-submit" type="submit" ${isRepeatedGuess() ? "disabled" : ""}>Tahmin et</button>
       </form>
     </section>`;
   document.querySelector("#price-input").focus();
@@ -184,7 +201,7 @@ function showSummary() {
   summaryContent.innerHTML = question.information.slice(0, visibleCount).map((screen) => `
     <div class="summary-item">
       <span>${infoIcon(screen)}</span>
-      <div><small>${escapeHtml(screen.label || "Görsel")}</small><strong>${escapeHtml(screen.content || screen.imageAlt)}</strong></div>
+      <div>${screen.label ? `<small>${escapeHtml(screen.label)}</small>` : ""}<strong>${escapeHtml(screen.content || screen.imageAlt)}</strong></div>
     </div>`).join("");
   summaryDialog.showModal();
 }
@@ -192,12 +209,14 @@ function showSummary() {
 function submitGuess(form) {
   const rawValue = new FormData(form).get("price").replaceAll(/[^0-9]/g, "");
   const guess = Number(rawValue);
+  state.lastGuess = Number.isSafeInteger(guess) && guess > 0 ? formatPrice(guess) : rawValue;
   if (!Number.isSafeInteger(guess) || guess <= 0) {
     state.feedback = "Geçerli bir fiyat girmelisin.";
     state.feedbackKind = "low";
     renderGuess();
     return;
   }
+  if (isRepeatedGuess(guess)) return;
 
   const target = currentQuestion().targetPrice;
   if (Math.abs(guess - target) / target <= 0.05) {
@@ -206,6 +225,7 @@ function submitGuess(form) {
     return;
   }
 
+  state.guesses.push({ value: guess, direction: guess < target ? "up" : "down" });
   state.attempts += 1;
   if (state.attempts >= 10) {
     state.results.push(0);
@@ -234,6 +254,8 @@ app.addEventListener("click", (event) => {
     state.attempts = 0;
     state.feedback = "";
     state.feedbackKind = "";
+    state.lastGuess = "";
+    state.guesses = [];
     state.view = state.questionIndex >= state.quiz.questions.length ? "results" : "info";
     render();
   }
@@ -244,14 +266,38 @@ app.addEventListener("click", (event) => {
     state.attempts = 0;
     state.results = [];
     state.feedback = "";
+    state.feedbackKind = "";
+    state.lastGuess = "";
+    state.guesses = [];
     render();
   }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (summaryDialog.open || event.repeat) return;
+  if (event.key !== "Enter" && event.key !== " ") return;
+  if (event.target.closest("button, input, textarea, select, a")) return;
+
+  const primaryAction = document.querySelector("#app .primary-button:not(:disabled), #app .secondary-button:not(:disabled)");
+  if (!primaryAction) return;
+  event.preventDefault();
+  primaryAction.click();
 });
 
 app.addEventListener("submit", (event) => {
   if (event.target.id !== "guess-form") return;
   event.preventDefault();
   submitGuess(event.target);
+});
+
+app.addEventListener("input", (event) => {
+  if (event.target.id !== "price-input") return;
+  const digits = event.target.value.replaceAll(/[^0-9]/g, "");
+  const value = digits ? formatPrice(Number(digits)) : "";
+  event.target.value = value;
+  state.lastGuess = value;
+  const submitButton = document.querySelector("#guess-submit");
+  if (submitButton) submitButton.disabled = isRepeatedGuess(value);
 });
 
 document.addEventListener("click", (event) => {
