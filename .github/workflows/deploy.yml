@@ -1,12 +1,9 @@
-name: Deploy prototype to GitHub Pages
+name: Deploy public site to GitHub Pages
 
 on:
   push:
     branches:
       - main
-    paths:
-      - ".github/workflows/deploy-prototype.yml"
-      - "examples/quiz-prototype/**"
   workflow_dispatch:
 
 permissions:
@@ -25,23 +22,24 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out public site
         uses: actions/checkout@v4
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Prepare prototype artifact
+      - name: Prepare site artifact
         run: |
-          mkdir -p dist
-          cp -R examples/quiz-prototype/. dist/
-          rm dist/README.md
-          touch dist/.nojekyll
+          mkdir "${RUNNER_TEMP}/site"
+          rsync -a \
+            --exclude '.git' \
+            --exclude '.github' \
+            ./ "${RUNNER_TEMP}/site/"
 
-      - name: Upload GitHub Pages artifact
+      - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ${{ runner.temp }}/site
 
       - name: Deploy to GitHub Pages
         id: deployment
