@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sencekaceder.com/sitemap.xml
